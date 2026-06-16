@@ -4,9 +4,9 @@
   "description": "Kurator Companion — Secure Batch File Deleter. 100% client-side, exact-match only.",
   "type": "module",
   "scripts": {
-    "dev": "npx vite",
-    "build": "npx vite build",
-    "preview": "npx vite preview",
+    "dev": "node node_modules/vite/bin/vite.js",
+    "build": "node node_modules/vite/bin/vite.js build",
+    "preview": "node node_modules/vite/bin/vite.js preview",
     "test": "vitest run",
     "test:watch": "vitest"
   },
