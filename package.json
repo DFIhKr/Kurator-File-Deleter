@@ -1,0 +1,21 @@
+{
+  "name": "kurator-batch-deleter",
+  "version": "1.0.0",
+  "description": "Kurator Companion — Secure Batch File Deleter. 100% client-side, exact-match only.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0",
+    "vitest": "^3.0.0"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Edge versions"
+  ]
+}
