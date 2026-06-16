@@ -30,7 +30,7 @@ export function InputView(container, onNext) {
   view.appendChild(
     h('div', { style: { marginBottom: 'var(--space-6)', textAlign: 'center' } },
       h('h2', { style: { marginBottom: 'var(--space-2)' } }, 'Masukkan Daftar File'),
-      h('p', { style: { fontSize: 'var(--text-sm)' } }, 'Paste nama file yang ingin dihapus, atau impor dari file .txt / .csv')
+      h('p', { style: { fontSize: 'var(--text-sm)' } }, 'Paste nama file yang ingin dihapus, atau impor dari file .txt')
     )
   );
 
@@ -39,7 +39,7 @@ export function InputView(container, onNext) {
   const textareaWrapper = h('div', { className: 'textarea-wrapper' });
   const textarea = h('textarea', {
     id: 'file-input-textarea',
-    placeholder: 'Ketik atau paste nama file di sini...\nContoh:\nreport.pdf\nphoto_001.jpg\ndata.csv',
+    placeholder: 'Ketik atau paste nama file di sini...\nContoh:\nreport.pdf\nphoto_001.jpg',
     style: { minHeight: '220px' },
   });
 
@@ -74,17 +74,8 @@ export function InputView(container, onNext) {
     txtInput.value = '';
   });
 
-  const csvInput = h('input', { type: 'file', accept: '.csv', style: { display: 'none' } });
-  csvInput.addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (file) await handleFileImport(file, textarea, updateCounter);
-    csvInput.value = '';
-  });
-
   importRow.appendChild(txtInput);
-  importRow.appendChild(csvInput);
   importRow.appendChild(Button({ text: 'Import TXT', variant: 'ghost', iconName: 'fileText', id: 'import-txt-btn', onClick: () => txtInput.click() }));
-  importRow.appendChild(Button({ text: 'Import CSV', variant: 'ghost', iconName: 'fileText', id: 'import-csv-btn', onClick: () => csvInput.click() }));
   importRow.appendChild(Button({ text: 'Hapus Semua', variant: 'ghost', iconName: 'trash2', id: 'clear-input-btn', onClick: () => { textarea.value = ''; updateCounter(); } }));
 
   view.appendChild(importRow);

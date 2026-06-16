@@ -37,24 +37,6 @@ export function ScanView(container, onNext, onBack) {
     )
   );
 
-  // Subfolder toggle
-  const includeSubfolders = AppState.get('includeSubfolders');
-  const toggleRow = h('div', { className: 'toggle-row', style: { marginBottom: 'var(--space-6)' } });
-  toggleRow.appendChild(h('span', { className: 'toggle-row__label' }, 'Scan subfolder (rekursif)'));
-
-  const toggleSwitch = h('div', {
-    className: `toggle-switch ${includeSubfolders ? 'toggle-switch--on' : ''}`,
-    id: 'subfolder-toggle',
-  });
-  const thumb = h('div', { className: 'toggle-switch__thumb' });
-  toggleSwitch.appendChild(thumb);
-  toggleSwitch.addEventListener('click', () => {
-    const current = AppState.get('includeSubfolders');
-    AppState.set('includeSubfolders', !current);
-    toggleSwitch.classList.toggle('toggle-switch--on', !current);
-  });
-  toggleRow.appendChild(toggleSwitch);
-  view.appendChild(toggleRow);
 
   // Select Folder Button
   const statusArea = h('div', { id: 'scan-status', style: { marginBottom: 'var(--space-6)' } });
@@ -91,8 +73,7 @@ export function ScanView(container, onNext, onBack) {
         );
 
         // Scan directory
-        const recursive = AppState.get('includeSubfolders');
-        const directoryFiles = await FileSystemAPI.listFiles(dirHandle, recursive);
+        const directoryFiles = await FileSystemAPI.listFiles(dirHandle, false);
 
         // Match files
         const results = MatcherService.matchFiles(fileList, directoryFiles);
@@ -116,7 +97,7 @@ export function ScanView(container, onNext, onBack) {
               <div class="stat-card__label">Total di Folder</div>
             </div>
           </div>
-          <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Folder: "${dirHandle.name}"${recursive ? ' (termasuk subfolder)' : ''}</p>
+          <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Folder: "${dirHandle.name}"</p>
         `;
         statusArea.appendChild(summaryCard);
 

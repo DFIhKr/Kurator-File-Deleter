@@ -1,6 +1,6 @@
 /**
  * ParserService.js
- * Parses text, TXT files, and CSV files into clean filename arrays.
+ * Parses text and TXT files into clean filename arrays.
  */
 
 import { LoggerService } from './LoggerService.js';
@@ -77,54 +77,9 @@ export class ParserService {
     }
   }
 
-  /**
-   * Parse a .csv file into filenames.
-   * Extracts the first column from each row.
-   * @param {File} file
-   * @returns {Promise<{ filenames: string[], errors: string[] }>}
-   */
-  static async parseCsvFile(file) {
-    try {
-      const text = await file.text();
-      logger.info(`Mengimpor file CSV: "${file.name}" (${file.size} bytes)`);
 
-      // Parse CSV: extract first column
-      const lines = text.split(/[\n\r]+/).filter(l => l.trim().length > 0);
-      const filenames = [];
 
-      for (const line of lines) {
-        // Handle quoted CSV fields
-        let firstCol;
-        if (line.startsWith('"')) {
-          const endQuote = line.indexOf('"', 1);
-          firstCol = endQuote > 0 ? line.substring(1, endQuote) : line;
-        } else {
-          firstCol = line.split(',')[0];
-        }
-        firstCol = firstCol.trim();
-        if (firstCol.length > 0) {
-          filenames.push(firstCol);
-        }
-      }
-
-      // Now parse through our standard text parser for validation
-      return ParserService.parseText(filenames.join('\n'));
-    } catch (err) {
-      logger.error(`Gagal membaca file CSV "${file.name}": ${err.message}`);
-      return { filenames: [], errors: [`Gagal membaca file: ${err.message}`] };
-    }
-  }
-
-  /**
-   * Auto-detect file type and parse accordingly.
-   * @param {File} file
-   * @returns {Promise<{ filenames: string[], errors: string[] }>}
-   */
   static async parseFile(file) {
-    const ext = file.name.split('.').pop().toLowerCase();
-    if (ext === 'csv') {
-      return ParserService.parseCsvFile(file);
-    }
     // Default to TXT parsing for .txt and any other text files
     return ParserService.parseTxtFile(file);
   }

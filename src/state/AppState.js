@@ -13,7 +13,6 @@ const INITIAL_STATE = {
   isLoading: false,
   error: null,
   theme: 'dark',
-  includeSubfolders: false,
 };
 
 class StateStore {

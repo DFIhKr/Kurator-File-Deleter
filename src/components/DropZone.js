@@ -1,6 +1,6 @@
 /**
  * DropZone.js
- * Drag and drop zone for .txt/.csv files.
+ * Drag and drop zone for .txt files.
  */
 
 import { h } from '../utils/helpers.js';
@@ -20,12 +20,12 @@ export function DropZone({ onFileDrop, id }) {
   zone.innerHTML = `
     <div class="drop-zone__icon">${icons.upload}</div>
     <div class="drop-zone__title">Seret file ke sini</div>
-    <div class="drop-zone__subtitle">atau klik untuk memilih file .txt / .csv</div>
+    <div class="drop-zone__subtitle">atau klik untuk memilih file .txt</div>
   `;
 
   const fileInput = h('input', {
     type: 'file',
-    accept: '.txt,.csv',
+    accept: '.txt',
   });
 
   fileInput.addEventListener('change', (e) => {
@@ -53,7 +53,7 @@ export function DropZone({ onFileDrop, id }) {
     const file = e.dataTransfer.files[0];
     if (file) {
       const ext = file.name.split('.').pop().toLowerCase();
-      if (ext === 'txt' || ext === 'csv') {
+      if (ext === 'txt') {
         if (onFileDrop) onFileDrop(file);
       }
     }

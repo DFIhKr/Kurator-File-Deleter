@@ -17,6 +17,6 @@ export const STEPS = [
   { id: 'summary', label: 'Selesai', number: 5 },
 ];
 
-export const ACCEPTED_FILE_TYPES = ['.txt', '.csv'];
+export const ACCEPTED_FILE_TYPES = ['.txt'];
 
 export const TOAST_DURATION = 4000; // ms
